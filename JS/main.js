@@ -39,8 +39,9 @@ function addToDo(event) {
         } 
     else {
         // newToDo.innerText = "hey";
-        todos = JSON.parse(localStorage.getItem('todos'));
-        console.log(todos.length);
+               todos = JSON.parse(localStorage.getItem('todos'));
+        console.log(todos);
+        if(!todos)todos=[];
         newToDo.innerHTML ='<input display: inline-block;size="6" class="todo input-li '+ savedTheme+'-todo"onchange="saveChange('+todos.length+')" style="background:none" value="'+toDoInput.value+'"id='+todos.length+'></input>'; 
         newToDo.classList.add('todo-item');
         toDoDiv.appendChild(newToDo);
