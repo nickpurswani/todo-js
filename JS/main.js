@@ -6,6 +6,7 @@ const toDoList = document.querySelector('.todo-list');
 const standardTheme = document.querySelector('.standard-theme');
 const lightTheme = document.querySelector('.light-theme');
 const darkerTheme = document.querySelector('.darker-theme');
+const search = document.querySelector('.search');
 
 
 // Event Listeners
@@ -40,8 +41,9 @@ function addToDo(event) {
     else {
         // newToDo.innerText = "hey";
         todos = JSON.parse(localStorage.getItem('todos'));
-        console.log(todos.length);
-        newToDo.innerHTML ='<input display: inline-block;size="6" class="todo input-li '+ savedTheme+'-todo"onchange="saveChange('+todos.length+')" style="background:none" value="'+toDoInput.value+'"id='+todos.length+'></input>'; 
+        console.log(todos);
+        if(!todos)todos=[];
+        newToDo.innerHTML ='<input display: inline-block;size="6" class="todo input-li '+ savedTheme+'-todo" onchange="saveChange('+todos.length+')" style="background:none" value="'+toDoInput.value+'"id='+todos.length+'></input>'; 
         newToDo.classList.add('todo-item');
         toDoDiv.appendChild(newToDo);
 
@@ -78,6 +80,27 @@ function saveChange(y){
         }
     });
     localStorage.setItem('todos', JSON.stringify(todos));
+
+}
+function searchTodos(){
+    const s=search.value;
+  
+    todos = JSON.parse(localStorage.getItem('todos'));
+    if(s==''||!s){
+        todos.forEach((todo)=>{
+            let y=Object.keys(todo);
+                document.getElementById(y).parentElement.parentElement.classList.remove('visible');
+        });
+    }
+    todos.forEach((todo)=>{
+        let y=Object.keys(todo);
+        if(todo[y].includes(s)){
+            //do nothing
+        }else{
+            document.getElementById(y).parentElement.parentElement.classList.add('visible');
+        }
+
+    });
 
 }
 

@@ -22,6 +22,7 @@
 <body>
     <div id = "header">
         <div class="flexrow-container">
+            <input type="search" style="background: none;" onchange="searchTodos()" class="todo search" name="search" id="" placeholder="Search">
             <div class="standard-theme theme-selector"></div>
             <div class="light-theme theme-selector"></div>
             <div class="darker-theme theme-selector"></div>
@@ -29,8 +30,8 @@
         <h1 id="title">ADD TASKS<div id="border"></div></h1>
     </div>
 
-  <div id="form">
-        <form>
+  <div id="form"style="position: sticky; top:0;">
+        <form >
             <input class="todo-input" type="text" placeholder="Add a task.">
             <button class="todo-btn" type="submit">Submit!</button>
         </form>
