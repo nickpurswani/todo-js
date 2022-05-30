@@ -69,6 +69,7 @@ function addToDo(event) {
     }
 
 }   
+//edit of todo save change to local
 function saveChange(y){
     
     
@@ -82,6 +83,7 @@ function saveChange(y){
     localStorage.setItem('todos', JSON.stringify(todos));
 
 }
+//search result
 function searchTodos(){
     const s=search.value;
   
