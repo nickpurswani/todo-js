@@ -406,5 +406,5 @@ padding: 0%;
     }
 }
 .visible{
-    visibility: hidden;
+    display: none;
 }

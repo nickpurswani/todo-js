@@ -42,13 +42,22 @@ function addToDo(event) {
         // newToDo.innerText = "hey";
         todos = JSON.parse(localStorage.getItem('todos'));
         console.log(todos);
-        if(!todos)todos=[];
-        newToDo.innerHTML ='<input display: inline-block;size="6" class="todo input-li '+ savedTheme+'-todo" onchange="saveChange('+todos.length+')" style="background:none" value="'+toDoInput.value+'"id='+todos.length+'></input>'; 
+        let tempvalue={};
+        let index=0;
+        if(!todos||todos.length==0){todos=[];
+        tempvalue[0]=toDoInput.value;
+        }
+        else{
+            index=Number(Object.keys(todos[todos.length-1]))+1;
+        tempvalue[index]=toDoInput.value;
+       
+    }
+        newToDo.innerHTML ='<input display: inline-block;size="6" class="todo input-li '+ savedTheme+'-todo" onchange="saveChange('+index+')" style="background:none" value="'+toDoInput.value+'"id='+todos.length+'></input>'; 
         newToDo.classList.add('todo-item');
         toDoDiv.appendChild(newToDo);
 
         // Adding to local storage;
-        savelocal(toDoInput.value);
+        savelocal(tempvalue);
 
         // check btn;
         const checked = document.createElement('button');
@@ -94,15 +103,17 @@ function searchTodos(){
                 document.getElementById(y).parentElement.parentElement.classList.remove('visible');
         });
     }
+    else{
     todos.forEach((todo)=>{
         let y=Object.keys(todo);
         if(todo[y].includes(s)){
-            //do nothing
+            document.getElementById(y).parentElement.parentElement.classList.remove('visible');
         }else{
             document.getElementById(y).parentElement.parentElement.classList.add('visible');
         }
-
+    
     });
+}
 
 }
 
@@ -146,9 +157,8 @@ function savelocal(todo){
     else {
         todos = JSON.parse(localStorage.getItem('todos'));
     }
-    let x={};
-    x[todos.length]=todo;
-    todos.push(x);
+    
+    todos.push(todo);
     localStorage.setItem('todos', JSON.stringify(todos));
     
 }
@@ -206,8 +216,24 @@ function removeLocalTodos(todo){
         todos = JSON.parse(localStorage.getItem('todos'));
     }
 
-    const todoIndex =  todos.indexOf(todo.children[0].innerText);
-    // console.log(todoIndex);
+    
+    let x=todo.children[0].children[0].id;
+   
+
+    let y=todo.children[0].children[0].value;
+  console.log(x);
+    let z={};
+    z[x]=y;
+     let i=0;
+     let todoIndex;
+     for(let i=0;i<todos.length;i++){
+        if(JSON.stringify(todos[i]) ==JSON.stringify(z) ){
+            todoIndex=i;
+            break;
+            
+       }
+     }
+     
     todos.splice(todoIndex, 1);
     // console.log(todos);
     localStorage.setItem('todos', JSON.stringify(todos));
